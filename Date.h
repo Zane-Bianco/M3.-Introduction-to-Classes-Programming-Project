@@ -7,13 +7,15 @@ class Date {
 private:
 	int day, month, year;
 public:
-	Date(int m = 1, int d = 1, int y = 1990) {
-		day = d;
-		month = m;
-		year = y;
-	}
-	void setDate(int month, int day, int year);
-
+	void setDate(int d, int m, int y);
+	int getDay() const;
+	int getMonth() const;
+	int getYear() const;
+	bool isLeapYear();
+	bool isLeapYear(int year);
+	int lastDay();
+	int lastDay(int month, int year);
+	Date(int m = 1, int d = 1, int y = 1990);
 };
 
 #endif
