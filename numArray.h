@@ -8,7 +8,7 @@ using namespace std;
 class numArray {
 	private:
 		double* arr;
-		int size; 
+		int arr_Size; 
 		static const int max_Size = 10; //Default array size
 	public:
 		numArray(int size = max_Size); // Constructor
@@ -18,7 +18,7 @@ class numArray {
 		double getMaximum(); //Function to retrieve the maximum value within the array (accessor)
 		double getAverage(); //Function to calculate the average value within the array (accessor)
 		void printArray(); //Function to output the values within the array (accessor)
-		inline int getsize() { return size; }; //Function to return size (accessor)
+		inline int getsize() { return arr_Size; }; //Function to return size (accessor)
 		~numArray(); // Destructor
 
 };

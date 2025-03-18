@@ -13,13 +13,13 @@ using namespace std;
 numArray::numArray(int size) {
 	cout << "Constructor: Memory Allocated" << endl;
 	if (size >= 20 || size < 1) {
-		this ->size = max_Size;
+		arr_Size = max_Size;
 		cerr << "Array size invalid setting default." << endl;
 	}
 	else {
-		this ->size = size;
+		arr_Size = size;
 	}
-	arr = new double[this->size]();
+	arr = new double[arr_Size]();
 }
 
 
@@ -27,7 +27,7 @@ numArray::numArray(int size) {
 //Sets the specified index to the given value, verifies that the index is within the array
 //If index is out of bounds output error and don't store value otherwise set the index to value
 void numArray::setNumber(int index, double value) {
-	if (index >= size || index < 0) {
+	if (index >= arr_Size || index < 0) {
 		cerr << "Invalid index, number not stored" << endl;
 
 	}
@@ -40,7 +40,7 @@ void numArray::setNumber(int index, double value) {
 //Gets the value stored at index after validation by returning it (prints statement for testing)
 //If given index fails validation it outputs an error and returns the default value of 0.0
 double numArray::getNumber(int index) {
-	if (index >= size || index < 0) {
+	if (index >= arr_Size || index < 0) {
 		cerr << "Invalid index, returning default value: 0.0" << endl;
 			return 0.0;
 	}
@@ -57,7 +57,7 @@ double numArray::getNumber(int index) {
 //finally returns min value (prints statement for testing)
 double numArray::getMinimum() {
 	double min = arr[0];
-	for (int i = 1; i < size; i++) {
+	for (int i = 1; i < arr_Size; i++) {
 			if (arr[i] < min) {
 				min = arr[i];	
 			}	
@@ -74,7 +74,7 @@ double numArray::getMinimum() {
 //finally returns max value (prints statement for testing)
 double numArray::getMaximum() {
 	double max = arr[0];
-	for (int i = 1; i < size; i++) {
+	for (int i = 1; i < arr_Size; i++) {
 		if (arr[i] > max) {
 			max = arr[i];
 		}
@@ -90,11 +90,11 @@ double numArray::getMaximum() {
 //returns the sum / the size of the array (prints statement for testing)
 double numArray::getAverage() {
 	double sum = arr[0];
-	for (int i = 1; i < size; i++) {
+	for (int i = 1; i < arr_Size; i++) {
 		(sum += arr[i]);
 		}	
-	cout << "The average value in the array is: " << sum/size << endl;
-	return sum / size;
+	cout << "The average value in the array is: " << sum/arr_Size << endl;
+	return sum / arr_Size;
 }
 	
 
@@ -102,7 +102,7 @@ double numArray::getAverage() {
 //Print the array by iterating through array one by one and outputting them with a set precision of 1 
 //this displays all of the values up to their first decimal place
 void numArray::printArray() {
-	for (int i = 0; i < size; i++) {
+	for (int i = 0; i < arr_Size; i++) {
 		cout << "{" << fixed << setprecision(1) << arr[i] << "}";
 	}
 	cout << endl;
