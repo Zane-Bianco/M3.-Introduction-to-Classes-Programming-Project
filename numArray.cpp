@@ -8,7 +8,7 @@
 using namespace std;
 
 // Constructor with size = max_Size, max_Size defaulted to 10
-// If size >= 20 or size < 1 size is set to te default size otherwise 
+// If size >= 20 or size < 1 size is set to the default size otherwise 
 // it makes a pointer to a double array of that size
 numArray::numArray(int size) {
 	cout << "Constructor: Memory Allocated" << endl;
