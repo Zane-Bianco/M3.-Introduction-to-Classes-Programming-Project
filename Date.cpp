@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Date.h"
 #include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -99,10 +100,122 @@ bool Date::isLeapYear(int year) const {
 
 //Function to print in date format: January 2, 1990
 void Date::printMonthNameDayYear() const {
-	cout << getMonthName(month) << " " << day << ", " << year << "\n";
+	cout << getMonthName(month) << " " << day << ", " << year << "\n" << "\n";
 }
 
 //Function to print in date format: January, 2 1990
 void Date::printDayMonthNameYear() const {
-	cout << day << " " << getMonthName(month) << ", " << year << "\n";
+	cout << day << " " << getMonthName(month) << ", " << year << "\n" << "\n";
+}
+
+int Date::dayCount()const {
+	int days = 0;
+	
+	for (int y = 0; y < year;++y) {
+		days += isLeapYear(y) ? 366 : 365;
+	}
+
+	for (int m = 1; m < month;++m) {
+		days += lastDay(m,year);
+	}
+
+	days += day;
+	return days;
+}
+int Date::dayCount(int m, int d, int y)const {
+	int days = 0;
+
+	for (int y = 0; y < year;++y) {
+		days += isLeapYear(y) ? 366 : 365;
+	}
+
+	for (int m = 1; m < month;++m) {
+		days += lastDay(m, year);
+	}
+
+	days += day;
+	return days;
+}
+
+Date& Date::operator++() {
+	++day;
+	if (day > lastDay(month, year)) {
+		day = 1;
+		++month;
+		if (month > 12) {
+			month = 1;
+			++year;
+		}
+	}
+	return *this;
+}
+Date Date::operator++(int) {
+	Date temp = *this;
+	++day;
+	if (day > lastDay(month, year)) {
+		day = 1;
+		++month;
+		if (month > 12) {
+			month = 1;
+			++year;
+		}
+	}
+	return temp;
+}
+
+Date& Date::operator--(){
+	--day;
+	if (day < 1) {
+		--month;
+		if (month < 1) {
+			month = 12;
+			--year;
+		}
+		day = lastDay(month, year);
+	}
+	return *this;
+}
+Date Date::operator--(int) {
+	Date temp = *this;
+	--day;
+	if (day < 1) {
+		--month;
+		if (month < 1) {
+			month = 12;
+			--year;
+		}
+		day = lastDay(month, year);
+	}
+	return temp;
+}
+
+int Date::operator-(const Date& other) {
+	int diff = this->dayCount() - other.dayCount();
+	return diff >= 0 ? diff : -diff;
+}
+
+
+
+istream& operator>>(istream& in, Date& date) {
+	string input;
+	int m, d, y;
+	char slash;
+	
+	while (true) {
+		cout << "Enter Month/Day/Year: ";
+		getline(in, input);
+		istringstream iss(input);
+		if (iss >> m >> slash >> d >> slash >> y && slash == '/') {
+			date.setDate(m, d, y);
+			break;
+		}else{
+			cout << "Invalid format! Please use MM/DD/YYYY." << endl;	
+			}
+	}
+	return in;
+}
+
+ostream& operator<<(ostream& out, const Date& date) {
+	out << date.getMonthName(date.month) << " " << date.day << ", " << date.year << endl;
+	return out;
 }

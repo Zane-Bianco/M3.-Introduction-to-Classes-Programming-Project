@@ -2,6 +2,7 @@
 #ifndef date_h
 #define date_h
 #include <string>
+#include <iostream>
 
 using namespace std;
 
@@ -19,11 +20,21 @@ public:
 	bool isLeapYear(int year)const;
 	int lastDay()const;
 	int lastDay(int month, int year) const;
+	int dayCount()const;
+	int dayCount(int m, int d, int y)const;
 	Date(int m = 1, int d = 1, int y = 1900); //constructor 
 	string getMonthName(int month) const; // function to get the month name for other display formats
 	void printMonthDayYear() const; //// 12/25/2021
 	void printMonthNameDayYear() const; //// December 12, 2021
 	void printDayMonthNameYear() const; //// 12 December, 2021
+	Date& operator++(); //Prefix Overloaded Operator to increment day
+	Date operator++(int);//Postfix Overloaded Operator to increment day
+	Date& operator--(); //Prefix Overloaded Operator to decrement day
+	Date operator--(int);//Postfix Overloaded Operator to decrement day
+	int operator-(const Date& other);
+	friend ostream& operator<<(ostream& out, const Date&date);
+	friend istream& operator>>(istream& in,Date& date);
+	
 };
 
 #endif
